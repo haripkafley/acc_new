@@ -1,0 +1,55 @@
+== on closing the case dialog box with warning and check list should appear
+
+== all buttons blue with plus
+
+== no border evidence matrix
+
+== Probable offence should be shown in the title
+
+== save based on accused and show in accordian. all details of one person at once
+
+== once one persons elemtize finish when saving do u want to elemtize another offence? if yes stay in the same form. 
+
+== change the colour of yellow to orange. make the main probable offence green. use yes/no logic
+
+== cancel button 
+
+exhibit table
+1. exhibit
+2. exhibit number 
+3. collected on 
+4. collection method
+5. description 
+
+
+caseid will be caseno
+caseno will be manual
+
+
+global add should have label also
+
+action plan ..\
+add moer in each table
+completion date 
+
+event date = completion date
+activity category = 
+description = 
+
+
+in idiary no need of status 
+
+days in queue = days between complaint forwated to doi and assingment to chief
+
+working days = all days in idiary 
+
+run dats == starting from assignment 
+
+
+
+
+
+
+
+ 
+

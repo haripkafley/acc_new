@@ -1,0 +1,28 @@
+{
+    "source sans pro": {
+        "italic": "E:\\xampp\\htdocs\\acc_merge\\storage\\fonts\/source_sans_pro_italic_af17c8440088929b38c5cfe930d7915d",
+        "300": "E:\\xampp\\htdocs\\acc_merge\\storage\\fonts\/source_sans_pro_300_c6077ec99d149827fee17e2ea27788e4",
+        "normal": "E:\\xampp\\htdocs\\acc_merge\\storage\\fonts\/source_sans_pro_normal_a331146e176a0c94e64a58f063c4f2b5",
+        "bold": "source_sans_pro_bold_cfebb083c1921633494989255bc500d0"
+    },
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_6c7b9742dc5ae85c1a4a9ff1945464dc"
+    },
+    "font awesome 5 free": {
+        "normal": "E:\\xampp\\htdocs\\acc_merge\\storage\\fonts\/font_awesome_5_free_normal_53a461860a760912241c035ad97e42ed",
+        "900": "font_awesome_5_free_900_a496f8644d2cd386b5617d8f041a0ea0"
+    },
+    "product sans": {
+        "normal": "product_sans_normal_0c975ead9ed8180310718bd4e7b57592"
+    },
+    "font awesome 6 brands": {
+        "normal": "font_awesome_6_brands_normal_71bf9b4b66fcf3bd9fde4f15f3322dc2"
+    },
+    "font awesome 6 free": {
+        "normal": "E:\\xampp\\htdocs\\acc_merge\\storage\\fonts\/font_awesome_6_free_normal_3eab95ce8f952506483d61f6dd5ba058",
+        "900": "font_awesome_6_free_900_bb99bd16ec3bd72448e491ebc98c5166"
+    },
+    "ionicons": {
+        "normal": "ionicons_normal_1b2b773bb3197b577cecee8d68579952"
+    }
+}

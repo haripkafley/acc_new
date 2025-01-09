@@ -1,0 +1,15 @@
+public/dist/css/adminlte.min.css ===
+
+
+<div class="row">
+                        <div class="col-sm-4">
+                                <label>Status&nbsp;<font color='red'>*</font></label>
+                                <select name="activitystatus" id="activitystatus" class="form-control" required>
+                                    <option value="{{ $activity->status }}" selected>{{ $activity->status }}</option>
+                                    <option value="Ongoing">Ongoing</option>
+                                    <option value="Complete">Complete</option>
+                                    <option value="Discontinue" >Discontinue</option>
+                                    <option value="Carry Forward" >Carry Forward</option>
+                                </select>
+                        </div>
+                    </div>
