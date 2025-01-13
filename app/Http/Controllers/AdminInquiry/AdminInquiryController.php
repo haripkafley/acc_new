@@ -69,6 +69,7 @@ class AdminInquiryController extends Controller
         $data['com_members'] = AdminInquiryRoom::where('appraise_id',$id)->where('type','com')->get();
         $data['members'] = AdminInquiryRoom::where('appraise_id',$id)->where('type','admin')->get();
         $data['member_no_coi'] = AdminInquiryRoom::where('appraise_id',$id)->where('coi_status','N')->where('type','admin')->count();
+        $data['members_com_approve'] = AdminInquiryRoom::where('appraise_id',$id)->where('type','com')->where('coi_status','N')->count();
         return view('administrative_inquiry.view_chief',$data);
     }
 

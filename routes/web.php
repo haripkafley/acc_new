@@ -2675,7 +2675,20 @@ Route::get('monetary-fine',[App\Http\Controllers\MonitoryFine\MonitorController:
 Route::get('monetary-fine/add-officials/{id}',[App\Http\Controllers\MonitoryFine\MonitorController::class,'addOfficial'])->name('monetary.fine.cheif.add.official');
 Route::post('monetary-fine/add-officials/insert-member',[App\Http\Controllers\MonitoryFine\MonitorController::class,'insertMember'])->name('monetary.fine.cheif.add.official.insert.member.insert');
 Route::get('monetary-fine/add-officials/delete-member/{id}',[App\Http\Controllers\MonitoryFine\MonitorController::class,'deleteMember'])->name('monetary.fine.cheif.official.delete.member');
+Route::get('monetary-fine/view-details-page/{id}',[App\Http\Controllers\MonitoryFine\MonitorController::class,'viewDetails'])->name('monetary.fine.view.details.page.chief');
+Route::post('monetary-fine/view-details-page/insert-cec-members',[App\Http\Controllers\MonitoryFine\MonitorController::class,'insertCecMember'])->name('monetary.fine.view.details.page.chief.insert.cec.member');
+Route::post('monetary-fine/view-details-page/update-cec-members',[App\Http\Controllers\MonitoryFine\MonitorController::class,'updateCecMember'])->name('monetary.fine.view.details.page.chief.update.cec.member');
+Route::get('monetary-fine/view-details-page/delete-cec-members/{id}',[App\Http\Controllers\MonitoryFine\MonitorController::class,'deleteCecMember'])->name('monetary.fine.view.details.page.chief.delete.cec.member.data');
+Route::post('monetary-fine/view-details-page/update-cec-member-decision',[App\Http\Controllers\MonitoryFine\MonitorController::class,'updateCecMemberDecision'])->name('monetary.fine.view.details.page.chief.insert.cec.member.update.decision');
+Route::post('monetary-fine/view-details-page/update-commission-member-decision',[App\Http\Controllers\MonitoryFine\MonitorController::class,'updatecommissionMemberDecision'])->name('monetary.fine.view.details.page.chief.insert.commission.member.update.decision');
 
+
+// monetary-fine-cec-commission
+Route::get('monetary-fine-cec-list',[App\Http\Controllers\MonitoryFine\MonitorController::class,'cecCasesList'])->name('monetary.fine.cec.cases.list');
+Route::get('monetary-fine-cec-commission/coi-page/{id}/{type}',[App\Http\Controllers\MonitoryFine\MonitorController::class,'cecCasesListCoi'])->name('monetary.fine.cec.cases.list.coi.page');
+Route::post('monetary-fine-cec-commission/coi-page/update-decision',[App\Http\Controllers\MonitoryFine\MonitorController::class,'cecCasesListUpdateDecision'])->name('monetary.fine.cec.cases.list.coi.page.update.decision');
+Route::get('monetary-fine-cec-commission/coi-page/view-page/{id}/{type}',[App\Http\Controllers\MonitoryFine\MonitorController::class,'cecCasesListView'])->name('monetary.fine.cec.cases.list.coi.page.view');
+Route::get('monetary-fine-commission-list',[App\Http\Controllers\MonitoryFine\MonitorController::class,'commissionCasesList'])->name('monetary.fine.commission.cases.list');
 
 // monetary-fine-official
 Route::get('monetary-fine-official',[App\Http\Controllers\MonitoryFine\MonitorController::class,'getOfficial'])->name('monetary.fine.get.official');
@@ -2694,6 +2707,21 @@ Route::get('recovery-model',[App\Http\Controllers\Recovery\RecoveryController::c
 Route::get('recovery-model/add-officials/{id}',[App\Http\Controllers\Recovery\RecoveryController::class,'addOfficial'])->name('recovery-model.cheif.add.official');
 Route::post('recovery-model/add-officials/insert-member',[App\Http\Controllers\Recovery\RecoveryController::class,'insertMember'])->name('recovery-model.cheif.add.official.insert.member.insert');
 Route::get('recovery-model/add-officials/delete-member/{id}',[App\Http\Controllers\Recovery\RecoveryController::class,'deleteMember'])->name('recovery-model.cheif.official.delete.member');
+
+Route::get('recovery-model/view-details-page/{id}',[App\Http\Controllers\Recovery\RecoveryController::class,'viewDetails'])->name('recovery-model.view.details.page.chief');
+Route::post('recovery-model/view-details-page/insert-cec-members',[App\Http\Controllers\Recovery\RecoveryController::class,'insertCecMember'])->name('recovery-model.view.details.page.chief.insert.cec.member');
+Route::post('recovery-model/view-details-page/update-cec-members',[App\Http\Controllers\Recovery\RecoveryController::class,'updateCecMember'])->name('recovery-model.view.details.page.chief.update.cec.member');
+Route::get('recovery-model/view-details-page/delete-cec-members/{id}',[App\Http\Controllers\Recovery\RecoveryController::class,'deleteCecMember'])->name('recovery-model.view.details.page.chief.delete.cec.member.data');
+Route::post('recovery-model/view-details-page/update-cec-member-decision',[App\Http\Controllers\Recovery\RecoveryController::class,'updateCecMemberDecision'])->name('recovery-model.view.details.page.chief.insert.cec.member.update.decision');
+Route::post('recovery-model/view-details-page/update-commission-member-decision',[App\Http\Controllers\Recovery\RecoveryController::class,'updatecommissionMemberDecision'])->name('recovery-model.view.details.page.chief.insert.commission.member.update.decision');
+
+
+// monetary-fine-cec-commission
+Route::get('recovery-model-cec-list',[App\Http\Controllers\Recovery\RecoveryController::class,'cecCasesList'])->name('recovery-model.cec.cases.list');
+Route::get('recovery-model-cec-commission/coi-page/{id}/{type}',[App\Http\Controllers\Recovery\RecoveryController::class,'cecCasesListCoi'])->name('recovery-model.cec.cases.list.coi.page');
+Route::post('recovery-model-cec-commission/coi-page/update-decision',[App\Http\Controllers\Recovery\RecoveryController::class,'cecCasesListUpdateDecision'])->name('recovery-model.cec.cases.list.coi.page.update.decision');
+Route::get('recovery-model-cec-commission/coi-page/view-page/{id}/{type}',[App\Http\Controllers\Recovery\RecoveryController::class,'cecCasesListView'])->name('recovery-model.cec.cases.list.coi.page.view');
+Route::get('recovery-model-commission-list',[App\Http\Controllers\Recovery\RecoveryController::class,'commissionCasesList'])->name('recovery-model.commission.cases.list');
 
 
 // recovery-model-official

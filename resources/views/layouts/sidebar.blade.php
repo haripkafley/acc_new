@@ -258,7 +258,7 @@
                 <li class="nav-item">
                     <a href="{{ route('information.enrichment.list') }}" class="nav-link">
                        <i class="fa fa-ravelry" aria-hidden="true"></i>
-                            <p>Information Enrichment Chief</p>
+                            <p>Information Enrichment</p>
                     </a>
                 </li>
             </ul>
@@ -276,7 +276,7 @@
                 <li class="nav-item">
                     <a href="{{ route('legal.opinion.list') }}" class="nav-link">
                        <i class="fa fa-ravelry" aria-hidden="true"></i>
-                            <p>Legal Opinion Chief</p>
+                            <p>Legal Opinion</p>
                     </a>
                 </li>
             </ul>
@@ -295,7 +295,7 @@
                 <li class="nav-item">
                     <a href="{{ route('monetary.fine.get.official') }}" class="nav-link">
                        <i class="fa fa-ravelry" aria-hidden="true"></i>
-                            <p>Monetary Fine Chief</p>
+                            <p>Monetary Fine</p>
                     </a>
                 </li>
             </ul>
@@ -305,6 +305,25 @@
                     <a href="{{ route('monetary.fine.get.official') }}" class="nav-link">
                        <i class="fa fa-ravelry" aria-hidden="true"></i>
                             <p>Monetary Fine Official</p>
+                    </a>
+                </li>
+            </ul>
+
+
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{ route('recovery-model.cheif') }}" class="nav-link">
+                       <i class="fa fa-ravelry" aria-hidden="true"></i>
+                            <p>Recovery</p>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{ route('recovery-model.get.official') }}" class="nav-link">
+                       <i class="fa fa-ravelry" aria-hidden="true"></i>
+                            <p>Recovery Official</p>
                     </a>
                 </li>
             </ul>
@@ -401,6 +420,24 @@
                     </a>
                 </li>
             </ul>
+
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{ route('monetary.fine.cec.cases.list') }}" class="nav-link">
+                       <i class="fa-sharp fa-light fa-user"></i>
+                            <p>Monetary Fine CEC</p>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{ route('recovery-model.cec.cases.list') }}" class="nav-link">
+                       <i class="fa-sharp fa-light fa-user"></i>
+                            <p>Recovery CEC</p>
+                    </a>
+                </li>
+            </ul>
             @endif
 
             @if(@$commission_cases && @$commission_cases->view_option=="Y")
@@ -439,6 +476,24 @@
                     </a>
                 </li>
             </ul>
+
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{ route('monetary.fine.commission.cases.list') }}" class="nav-link">
+                       <i class="fa-sharp fa-light fa-user"></i>
+                            <p>Monetary Fine Commission</p>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{ route('recovery-model.commission.cases.list') }}" class="nav-link">
+                       <i class="fa-sharp fa-light fa-user"></i>
+                            <p>Recovery Commission</p>
+                    </a>
+                </li>
+            </ul>
             @endif
 
             @if(@$chief_review && @$chief_review->view_option=="Y")
@@ -446,7 +501,7 @@
                 <li class="nav-item">
                     <a href="{{ route('assign.review.team.by.chief') }}" class="nav-link">
                        <i class="fa-sharp fa-light fa-user"></i>
-                            <p>Chief Review</p>
+                            <p>ACRD Review</p>
                     </a>
                 </li>
             </ul>

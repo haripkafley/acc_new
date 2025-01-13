@@ -290,4 +290,6 @@ class LegalOpinionController extends Controller
         return view('legal_opinion.com_cases',$data);
     }
 
+    
+
 }

@@ -45,7 +45,7 @@ href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTabl
 
                                                <a href="{{route('monetary.fine.cheif.add.official',['id'=>@$value->id])}}" class="btn btn-success" >+ Add Official</a>
 
-                                               <a href="{{route('legal.opinion.list.view.page.list',['id'=>@$value->id])}}" class="btn btn-warning">Actions</a>
+                                               <a href="{{route('monetary.fine.view.details.page.chief',['id'=>@$value->id])}}" class="btn btn-warning">Actions</a>
                                             
                                            </td>
 

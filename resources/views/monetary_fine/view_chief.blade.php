@@ -29,16 +29,16 @@
 
                 <div class="col-sm-12">
                     <div class="card">
-                    <p><b>Complaint No:</b> {{@$appraisal_details->eve_offence_details->complaint_details->complaintRegNo}}</p>
+                    <p><b>Complaint No:</b> {{@$monetary_details->eve_offence_details->complaint_details->complaintRegNo}}</p>
 
-                    <p><b>Complaint Title:</b> {{@$appraisal_details->eve_offence_details->complaint_details->complaintTitle}}</p>
+                    <p><b>Complaint Title:</b> {{@$monetary_details->eve_offence_details->complaint_details->complaintTitle}}</p>
 
 
 
-                    <p><b>Date Time:</b> {{@$appraisal_details->eve_offence_details->complaint_details->complaintDateTime}}</p>
+                    <p><b>Date Time:</b> {{@$monetary_details->eve_offence_details->complaint_details->complaintDateTime}}</p>
 
-                    <p><b>Offence Name :</b> {{@$appraisal_details->eve_offence_details->allegation_name}}</p>
-                    <p><b>Offence Description :</b> {{@$appraisal_details->eve_offence_details->allegation_description}}</p>
+                    <p><b>Offence Name :</b> {{@$monetary_details->eve_offence_details->allegation_name}}</p>
+                    <p><b>Offence Description :</b> {{@$monetary_details->eve_offence_details->allegation_description}}</p>
                    
 
                     
@@ -48,169 +48,86 @@
 
             <div class="col-sm-12">
                     <div class="card">
-                        <p><b>Complaint Details:</b> {{@$appraisal_details->eve_offence_details->complaint_details->complaintDetails}}</p>
+                        <p><b>Complaint Details:</b> {{@$monetary_details->eve_offence_details->complaint_details->complaintDetails}}</p>
                     </div>
                 </div>
 
 
                 <div class="col-sm-12">
-                    <div class="card card-primary card-outline card-outline-tabs">
-                    <div class="card-header" style="font-family:Product Sans"> Desk Review </div>
-
+                  <div class="card card-primary card-outline card-outline-tabs">
+                    <div class="card-header" style="font-family:Product Sans"> Monetary Fine </div>
                         <div class = "card-body">
                             <table id  = "maintable" class="table" >
-                                <thead>
+                               <thead>
                                     <tr>
-                                        <th>Start Date</th>
-                                        <th>Activity</th>
-                                        <th>Person to be contacted</th>
-                                        <th>Documents</th>
-                                        <th>Status</th>
-                                        <th>End Date</th>
+                                        <th>Category</th>
+                                        <th>CID/Permit No.</th>
+                                        <th>Name / Agency Name</th>
+                                        <th>Amount</th>
+                                        <th>Remarks</th>
                                         <th>Action</th>            
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(@$data_one->isNotEmpty())
-                                    @foreach(@$data_one as $att)
-                                    <tr>
-                                        <td>{{ $att->start_date }}</td>
-                                        <td>{{ $att->activity }}</td>
-                                        <td>{{ $att->person_contact }}</td>
-                                        <td>{{ $att->document_review }}</td>
-                                        <td>@if(@$att->status=="IN") Initiated @elseif(@$att->status=="UP") UnderProcess @else Complete @endif</td>
-                                        <td>{{ $att->end_date }}</td>
-                                        <td>
-                                                            
-                                                            <a class="btn btn-xs btn-success edit_button" 
-                                                            data-id="{{$att->id}}"
-                                                            data-start_date="{{$att->start_date}}"
-                                                            data-activity="{{$att->activity}}"
-                                                            data-person_contact="{{$att->person_contact}}"
-                                                            data-document_review="{{$att->document_review}}"
-                                                            data-status="{{$att->status}}"
-                                                            ><i class="fa fa-eye"></i>
-                                                                
-                                                            </a>
-                                                            
-                                                           <a class="btn btn-xs btn-warning mt-2" target="_blank" href="{{route('administrative.inquiry.plan.chief.list.view.details.desk.review.view.page.chief',['id'=>@$att->id])}}">Update Details
-                                                            </a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    @else
-                                    <tr><td>No Data Found</td></tr>
-                                    @endif
-                                                  
-                               </tbody>
+                                       @if(@$details->isNotEmpty())
+                                       @foreach(@$details as $value)
+                                       <tr>
+                                           <td>@if(@$value->category_id=="IND") Individual @else Agency @endif </td>
+                                           <td>{{@$value->cid_permit}}</td>
+                                           <td>{{@$value->name}}</td>
+                                           <td>{{@$value->amount}}</td>
+                                           <td>{{@$value->remarks}}</td>
+                                           
+                                           <td>
+                                            
+                                              <a type="button"
+                                              class="btn btn-xs btn-primary edit_button_person row-class-{{ @$att->id }}"
+                                                        data-row-data='{{ @$value->dzoName }}' data-id="{{@$value->id}}" data-category_id="{{@$value->category_id}}" data-cid_permit="{{@$value->cid_permit}}"
+                                                         data-name="{{@$value->name}}" 
+                                                        data-amount="{{@$value->amount}}"
+                                                        data-department="{{@$value->user_details->department_name->name}}"
+                                                        data-remarks = "{{@$value->remarks}}"
+                                                        data-toggle="modal"
+                                                        >
+                                                        View
+                                                    </a>
+                                                    <a type="button"
+                                                      class="btn btn-xs btn-success edit_button_payment row-class-{{ @$att->id }}"
+                                                                data-row-data='{{ @$value->dzoName }}' data-id="{{@$value->id}}" data-category_id="{{@$value->category_id}}" data-cid_permit="{{@$value->cid_permit}}"
+                                                                 data-name="{{@$value->name}}" 
+                                                                data-amount="{{@$value->amount}}"
+                                                                data-department="{{@$value->user_details->department_name->name}}"
+                                                                data-remarks = "{{@$value->remarks}}"
+                                                                data-receipt_date = "{{@$value->receipt_date}}"
+                                                                data-receipt_no = "{{@$value->receipt_no}}"
+                                                                data-remarks = "{{@$value->remarks}}"
+
+
+                                                                data-toggle="modal"
+                                                                >
+                                                        Payment
+                                                    </a>
+
+
+                                            
+                                           </td>
+
+                                       </tr>
+                                       @endforeach
+                                       @endif            
+                                </tbody>
                             </table>
                         </div>
-                    </div>
+                </div>
                 </div>
 
 
 
-            <div class="col-sm-12">
-                    <div class="card card-primary card-outline card-outline-tabs">
-                    <div class="card-header" style="font-family:Product Sans">Field Visits </div>
-
-                        <div class = "card-body">
-                            <table id  = "maintable" class="table" >
-                                <thead>
-                                    <tr>
-                                        <th>Field Visit Date</th>
-                                        <th>Visit Location</th>
-                                        <th>Activity Description</th>
-                                        <th>Status</th>
-                                        <th>End Date</th>
-                                        <th>Action</th>            
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if(@$data_two->isNotEmpty())
-                                    @foreach(@$data_two as $att)
-                                    <tr>
-                                        <td>{{ $att->start_date }}</td>
-                                        <td>{{ $att->location }}</td>
-                                        <td>{{ $att->activity }}</td>
-                                        <td>@if(@$att->status=="IN") Initiated @elseif(@$att->status=="UP") UnderProcess @else Complete @endif</td>
-                                        <td>{{ $att->end_date }}</td>
-                                        <td>
-                                                            
-                                                            <a class="btn btn-xs btn-success edit_button2" 
-                                                            data-id="{{$att->id}}"
-                                                            data-start_date="{{$att->start_date}}"
-                                                            data-activity="{{$att->activity}}"
-                                                            data-location="{{$att->location}}"
-                                                            data-status="{{$att->status}}"
-                                                            ><i class="fa fa-eye"></i>
-                                                                
-                                                            </a>
-                                                            
-                                                           
-
-                                                            <a class="btn btn-xs btn-warning mt-2" target="_blank" href="{{route('administrative.inquiry.plan.chief.list.view.details.feild.visit.view.page.chief',['id'=>@$att->id])}}">Update Details
-                                                            </a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    @else
-                                    <tr><td>No Data Found</td></tr>
-                                    @endif
-                                                  
-                               </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12">
-                    <div class="card card-primary card-outline card-outline-tabs">
-                    <div class="card-header" style="font-family:Product Sans"> Administrative Inquiry Report </div>
-
-                        <div class = "card-body">
-                            <form action="{{route('administrative.inquiry.plan.chief.list.view.details.update.report.decision')}}" enctype="multipart/form-data" method="POST">
-                                @csrf
-                                <input type="hidden" name="appraise_id" value="{{@$appraise_id}}">
-                                @if(@$appraisal_details->admin_report_attachment!="")
-                                <div class="form-group">
-                                    <a href="{{URL::to('attachment/information_enrichment')}}/{{$appraisal_details->admin_report_attachment}}" class="btn btn-xs btn-primary" target="_blank">See Attachment</a>
-                                </div>
-                                @endif
-
-                                <div class="form-group">
-                                    <label>Report Remarks</label>
-                                    <textarea type="text" name="admin_report_remarks" disabled class="form-control">{{@$appraisal_details->admin_report_remarks}}</textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Report Approval Status</label>
-                                    <select class="form-control" name="admin_approval_status_chief">
-                                        <option value="AA" @if(@$appraisal_details->admin_approval_status_chief=="AA") selected @endif>Awaiting</option>
-                                        <option value="A" @if(@$appraisal_details->admin_approval_status_chief=="A") selected @endif>Approve</option>
-                                        <option value="R" @if(@$appraisal_details->admin_approval_status_chief=="R") selected @endif>Reject</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Chief Remarks</label>
-                                    <textarea type="text" name="admin_approval_remarks_chief"  class="form-control">{{@$appraisal_details->admin_approval_remarks_chief}}</textarea>
-                                </div>
-
-                                <div class="form-group"><button type="submit" class="btn btn-primary">Submit</button></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                {{-- cec-member-add --}}
                 <div class="col-sm-12">
                     <div class="card">
                     <div class="row" style="font-family:Product Sans">
                                 <div class="col-sm">
-                                    Administrative Inquiry Committee
+                                    CEC Committee
                                 </div>
 
                                
@@ -240,8 +157,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (@$members->isNotEmpty())
-                                        @foreach (@$members as $att)
+                                    @if (@$cec_members->isNotEmpty())
+                                        @foreach (@$cec_members as $att)
                                             <tr>
                                                 <td>{{ @$att->eid }}</td>
                                                 <td>{{ @$att->user_details->name }}</td>
@@ -256,7 +173,7 @@
                                                     
                                                     @if(@$att->coi_status!="N")        
                                                     <a type="button"
-                                                        class="btn btn-xs btn-primary edit_button_person row-class-{{ @$att->id }}"
+                                                        class="btn btn-xs btn-primary edit_button_cec row-class-{{ @$att->id }}"
                                                         data-row-data='{{ @$att->dzoName }}' data-id="{{@$att->id}}" data-eid="{{@$att->user_details->eid}}" data-name="{{@$att->user_details->name}}"
                                                          data-user_id="{{@$att->user_details->id}}" 
                                                         data-cid="{{@$att->user_details->cid}}"
@@ -271,17 +188,12 @@
 
                                                    
                                                     <a class="btn btn-xs btn-danger"
-                                                        href="{{route('administrative.inquiry.plan.chief.list.view.details.chief.delete.inquiry.member',@$att->id)}}"
+                                                        href="{{route('monetary.fine.view.details.page.chief.delete.cec.member.data',@$att->id)}}"
                                                         onclick="return confirm('Are you sure , you want to delete this ? ')"><i
                                                             class="fa fa-trash"></i>
                                                         Delete
                                                     </a>
                                                     @endif
-
-                                                    {{-- <a href="{{route('member.details.on.cases.action-senstization',@$att->id)}}" class="btn btn-xs btn-warning" target="_blank">View More</a> --}}
-
-                                                    
-                                                    
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -298,52 +210,51 @@
                 </div>
 
 
-                @if(@$member_no_coi>0)
-                        <div class="col-sm-12">
+                <div class="col-sm-12">
                         <div class="card">
-                            <form action="{{route('administrative.inquiry.plan.chief.list.view.details.update.inquiry.meeting.decision')}}" enctype="multipart/form-data" method="POST">
+                            <form action="{{route('monetary.fine.view.details.page.chief.insert.cec.member.update.decision')}}" enctype="multipart/form-data" method="POST">
                                 @csrf
-                                <input type="hidden" name="appraise_id" value="{{@$appraise_id}}">
+                                <input type="hidden" name="id" value="{{@$id}}">
                                 <div class="row">
                                 <div class="col-md-6">    
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Date</label>
-                                    <input type="date" value="{{@$appraisal_details->inquiry_meeting_date}}"  name="inquiry_meeting_date" id="inquiry_meeting_date" class="form-control" required>
+                                    <label for="exampleInputEmail1">CEC  Date</label>
+                                    <input type="date" value="{{@$data->cec_date}}"  name="cec_date" id="cec_date" class="form-control" required>
                                 </div>
                               </div>
 
                                 <div class="col-md-6">    
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Time</label>
-                                    <input type="time" name="inquiry_meeting_time" value="{{@$appraisal_details->inquiry_meeting_time}}"  id="inquiry_meeting_time" class="form-control" required >
+                                    <label for="exampleInputEmail1">CEC  Time</label>
+                                    <input type="time" name="cec_time" value="{{@$data->cec_time}}"  id="cec_time" class="form-control" required >
                                 </div>
                                 </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Venue</label>
-                                    <input type="text" name="inquiry_meeting_venue" value="{{@$appraisal_details->inquiry_meeting_venue}}"  id="inquiry_meeting_venue" class="form-control" >
+                                    <label for="exampleInputEmail1">CEC Venue</label>
+                                    <input type="text" name="cec_venue" value="{{@$data->cec_venue}}"  id="cec_venue" class="form-control" >
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Recommendation Status</label>
-                                    <select class="form-control" name="inquiry_decision">
+                                    <label for="exampleInputEmail1">CEC Recommendation Status</label>
+                                    <select class="form-control" name="cec_decision">
                                         <option value="">Select</option>
-                                        <option value="ADS" @if(@$appraisal_details->inquiry_decision=="ADS") selected @endif>Administration Disciplinery Sanction</option>
-                                        <option value="MF" @if(@$appraisal_details->inquiry_decision=="MF") selected @endif>Monetary Fine</option>
-                                        <option value="REC" @if(@$appraisal_details->inquiry_decision=="REC") selected @endif>Recoveries</option>
-                                        <option value="SC" @if(@$appraisal_details->inquiry_decision=="SC") selected @endif>Systemic Correction</option>
-                                        <option value="CI" @if(@$appraisal_details->inquiry_decision=="CI") selected @endif>Criminal Investigation</option>
-                                        <option value="SEN" @if(@$appraisal_details->inquiry_decision=="SEN") selected @endif>Sensitive</option>
-                                        <option value="REV" @if(@$appraisal_details->inquiry_decision=="REV") selected @endif>Revert</option>
-                                        <option value="CLOSE" @if(@$appraisal_details->inquiry_decision=="CLOSE") selected @endif>Close</option>
+                                        <option value="ADS" @if(@$data->cec_decision=="ADS") selected @endif>Administration Disciplinery Sanction</option>
+                                        <option value="MF" @if(@$data->cec_decision=="MF") selected @endif>Monetary Fine</option>
+                                        <option value="REC" @if(@$data->cec_decision=="REC") selected @endif>Recoveries</option>
+                                        <option value="SC" @if(@$data->cec_decision=="SC") selected @endif>Systemic Correction</option>
+                                        <option value="CI" @if(@$data->cec_decision=="CI") selected @endif>Criminal Investigation</option>
+                                        <option value="SEN" @if(@$data->cec_decision=="SEN") selected @endif>Sensitive</option>
+                                        <option value="REV" @if(@$data->cec_decision=="REV") selected @endif>Revert</option>
+                                        <option value="CLOSE" @if(@$data->cec_decision=="CLOSE") selected @endif>Close</option>
 
                                     </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Remarks</label>
-                                    <textarea type="text" name="inquiry_remakrs" id="cec_venue" class="form-control" >{{@$appraisal_details->inquiry_remakrs}}</textarea>
+                                    <label for="exampleInputEmail1">CEC Remarks</label>
+                                    <textarea type="text" name="cec_remarks" id="cec_venue" class="form-control" >{{@$data->cec_remarks}}</textarea>
                                 </div>
                                
                                 <div class="form-group"><button type="submit" class="btn btn-primary">Save Decision</button></div>
@@ -352,14 +263,12 @@
 
                                 </form>
                                 </div> 
-                                </div>  
-
-                                @endif
+                    </div>
 
 
 
-                                                        
-                <div class="col-sm-12">
+
+                    <div class="col-sm-12">
                     <div class="card">
                         <div class="col-sm">
                                                 Commission Member List
@@ -410,7 +319,7 @@
                                                     
                                                    @if(@$att->coi_status!="N")         
                                                     <a type="button"
-                                                        class="btn btn-xs btn-primary edit_button_person row-class-{{ @$att->id }}"
+                                                        class="btn btn-xs btn-primary edit_button_cec row-class-{{ @$att->id }}"
                                                         data-row-data='{{ @$att->dzoName }}' data-id="{{@$att->id}}" data-eid="{{@$att->user_details->eid}}" data-name="{{@$att->user_details->name}}"
                                                          data-user_id="{{@$att->user_details->id}}" 
                                                         data-cid="{{@$att->user_details->cid}}"
@@ -425,78 +334,74 @@
 
                                                    
                                                     <a class="btn btn-xs btn-danger"
-                                                        href="{{route('administrative.inquiry.plan.chief.list.view.details.chief.delete.inquiry.member',@$att->id)}}"
+                                                        href="{{route('monetary.fine.view.details.page.chief.delete.cec.member.data',@$att->id)}}"
                                                         onclick="return confirm('Are you sure , you want to delete this ? ')"><i
                                                             class="fa fa-trash"></i>
                                                         Delete
                                                     </a>
                                                     @endif
-
-
-                                                     {{-- <a href="{{route('member.details.on.cases.action-senstization',@$att->id)}}" class="btn btn-xs btn-warning" target="_blank">View More</a> --}}
-                                                    
                                                 </td>
                                             </tr>
                                         @endforeach
-                                    @else
-                                        <tr>
-                                            <td>No Data Found</td>
-                                        </tr>
-                                    @endif
+                                        @else
+                                            <tr>
+                                                <td>No Data Found</td>
+                                            </tr>
+                                        @endif
 
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-            
 
-                @if(@$members_com_approve>0)    
-                        <div class="col-sm-12">
+
+            
+                <div class="col-sm-12">
             <div class="card" style="padding:25px;">
-                        <form action="{{route('administrative.inquiry.plan.chief.list.view.details.update.commission.meeting.decision')}}" enctype="multipart/form-data" method="POST">
+                        <form action="{{route('monetary.fine.view.details.page.chief.insert.commission.member.update.decision')}}" enctype="multipart/form-data" method="POST">
                                 @csrf
-                                <input type="hidden" name="appraise_id" value="{{@$appraise_id}}">
+                                <input type="hidden" name="id" value="{{@$id}}">
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Commission Date</label>
-                                    <input type="date" value="{{@$appraisal_details->inquiry_com_date}}"  name="inquiry_com_date" id="inquiry_com_date" class="form-control"  required>
+                                    <input type="date" value="{{@$data->com_date}}"  name="com_date" id="com_date" class="form-control"  required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Commission Time</label>
-                                    <input type="time" name="inquiry_com_time" value="{{@$appraisal_details->inquiry_com_time}}"  id="inquiry_com_time" class="form-control"  required>
+                                    <input type="time" name="com_time" value="{{@$data->com_time}}"  id="com_time" class="form-control"  required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Venue</label>
-                                    <input type="text" name="inquiry_com_venue" value="{{@$appraisal_details->inquiry_com_venue}}"  id="inquiry_com_venue" class="form-control"  required>
+                                    <input type="text" name="com_venue" value="{{@$data->com_venue}}"  id="com_venue" class="form-control"  required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="label">Commission Decision</label>
-                                    <select class="form-control" name="inquiry_com_status" id="com_final_decision"  required>
+                                    <select class="form-control" name="com_status" id="com_final_decision"  required>
                                         <option value="">Select</option>
-                                        <option value="ECD" @if(@$appraisal_details->inquiry_com_status=="ECD") selected @endif>Endorse CEC Decision</option>
-                                        <option value="ND" @if(@$appraisal_details->inquiry_com_status=="ND") selected @endif>New Decision</option>
+                                        <option value="ECD" @if(@$data->com_status=="ECD") selected @endif>Endorse CEC Decision</option>
+                                        <option value="ND" @if(@$data->com_status=="ND") selected @endif>New Decision</option>
                                     </select>
                                 </div>
 
 
-                                <div class="new_decision_div" @if(@$appraisal_details->inquiry_com_status=="ND") style="display:block;" @else  style="display:none;" @endif>
+                                <div class="new_decision_div" @if(@$data->com_status=="ND") style="display:block;" @else  style="display:none;" @endif>
 
 
                                 <div class="form-group">
                                     <label for="label">Decision</label>
-                                    <select class="form-control" name="inquiry_com_decision" id="outcome_status" >
-                                        <option value="ADS" @if(@$appraisal_details->inquiry_com_decision=="ADS") selected @endif>Administration Disciplinery Sanction</option>
-                                        <option value="MF" @if(@$appraisal_details->inquiry_com_decision=="MF") selected @endif>Monetary Fine</option>
-                                        <option value="REC" @if(@$appraisal_details->inquiry_com_decision=="REC") selected @endif>Recoveries</option>
-                                        <option value="SC" @if(@$appraisal_details->inquiry_com_decision=="SC") selected @endif>Systemic Correction</option>
-                                        <option value="CI" @if(@$appraisal_details->inquiry_com_decision=="CI") selected @endif>Criminal Investigation</option>
-                                        <option value="SEN" @if(@$appraisal_details->inquiry_com_decision=="SEN") selected @endif>Sensitive</option>
-                                        <option value="REV" @if(@$appraisal_details->inquiry_com_decision=="REV") selected @endif>Revert</option>
-                                        <option value="CLOSE" @if(@$appraisal_details->inquiry_com_decision=="CLOSE") selected @endif>Close</option>
+                                    <select class="form-control" name="com_decision" id="outcome_status" >
+                                        <option value="ADS" @if(@$data->com_decision=="ADS") selected @endif>Administration Disciplinery Sanction</option>
+                                        <option value="MF" @if(@$data->com_decision=="MF") selected @endif>Monetary Fine</option>
+                                        <option value="REC" @if(@$data->com_decision=="REC") selected @endif>Recoveries</option>
+                                        <option value="SC" @if(@$data->com_decision=="SC") selected @endif>Systemic Correction</option>
+                                        <option value="CI" @if(@$data->com_decision=="CI") selected @endif>Criminal Investigation</option>
+                                        <option value="SEN" @if(@$data->com_decision=="SEN") selected @endif>Sensitive</option>
+                                        <option value="REV" @if(@$data->com_decision=="REV") selected @endif>Revert</option>
+                                        <option value="CLOSE" @if(@$data->com_decision=="CLOSE") selected @endif>Close</option>
                                         
                                     </select>
                                 </div> 
@@ -508,7 +413,7 @@
 
                                 <div class="form-group">
                                     <label for="label">Remarks</label>
-                                    <textarea type="text" name="inquiry_com_remarks" class="form-control"  > {{@$appraisal_details->inquiry_com_remarks}}</textarea>
+                                    <textarea type="text" name="com_remarks" class="form-control"  > {{@$data->com_remarks}}</textarea>
                                 </div>
 
                                 <div class="form-group"><button class="btn btn-primary" type="submit">Update Commission Decision</button></div>
@@ -518,63 +423,86 @@
             </div>
           </div>
 
-           @endif
-
-
-
-
-
-
-
-
-            {{-- add-ie-plan --}}
             
-            <div class="modal fade" id="exampleModaEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="modal fade" id="exampleModa3_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">View Desk Review</h5>
+                            <h5 class="modal-title" id="exampleModalLabel2">View Details</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" enctype="multipart/form-data" action="{{route('administrative.inquiry.plan.official.get.list.view.details.update.desk.review')}}">@csrf
-
+                            <form method="post" action="{{ route('recovery-model.get.official.view.page.update.fine') }}" enctype="multipart/form-data">@csrf
                                 <input type="hidden" name="id" id="id">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Activity</label>
-                                    <textarea type="text" class="form-control" id="activity" name="activity" aria-describedby="emailHelp" placeholder="Activity"disabled ></textarea>
-                                 </div>
-
-                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Person to be Contacted</label>
-                                    <textarea type="text" class="form-control" id="person_contact" name="person_contact" aria-describedby="emailHelp" placeholder="Person to be Contacted"disabled ></textarea>
-                                 </div>
-
-                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Documents to be reviewed or collected</label>
-                                    <textarea type="text" class="form-control" id="document_review" name="document_review" aria-describedby="emailHelp"disabled  placeholder="Documents to be reviewed or collected"></textarea>
-                                 </div>
-
-
-                                 
-
-                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Start Date</label>
-                                    <input type="date" class="form-control" id="start_date" name="start_date" aria-describedby="emailHelp"disabled  placeholder="Requested By">
-                                 </div>
-
-                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Status</label>
-                                    <select class="form-control" disabled name="status" id="status">
-                                        <option value="IN">Initiated</option>
-                                        <option value="UP">Under Process</option>
-                                        <option value="COM">Complete</option>
+                                    <label for="exampleInputEmail1">Users</label>
+                                    <select class="form-control" name="category_id" id="category_id_edit" disabled>
+                                        <option value="">Select Category</option>
+                                        <option value="IND">Individual</option>
+                                        <option value="AGC">Agency</option>
                                     </select>
-                                 </div>
-                            </form>
+                                </div>
+
+                                <div class="form-group" id="indi_div_edit">
+                                    <label for="exampleInputEmail1">CID/Permit No</label>
+                                    <input type="text" name="cid_permit" id="cid_permit"  disabled class="form-control" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" id="name_label_edit">Name</label>
+                                    <input type="text" name="name" id="name"  disabled class="form-control" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Amount</label>
+                                    <input type="text" name="amount" id="amount" disabled class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Remarks</label>
+                                    <textarea name="remarks" id="remarks" disabled class="form-control"></textarea>
+                                </div>
+
+                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -585,51 +513,59 @@
             </div>
 
 
-
-            
-              
-
-
-
-                <div class="modal fade" id="exampleModaEdit2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="exampleModa3_payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">View Field Visits</h5>
+                            <h5 class="modal-title" id="exampleModalLabel2">Payment Details</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" enctype="multipart/form-data" action="{{route('administrative.inquiry.plan.official.get.list.view.details.update.felid.visit')}}">@csrf
-
-                                <input type="hidden" name="id" id="id_two">
+                            <form method="post" action="#" enctype="multipart/form-data">@csrf
+                                <input type="hidden" name="id" id="id_payment">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Field Visit Date</label>
-                                    <input type="date" class="form-control" id="start_date_two" name="start_date" aria-describedby="emailHelp" placeholder="Requested By" disabled>
-                                 </div>
-
-                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Visit Location</label>
-                                    <textarea type="text" class="form-control" id="location" name="location" aria-describedby="emailHelp" placeholder="Visit Location" disabled></textarea>
-                                 </div>
-
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Activity Description</label>
-                                    <textarea type="text" class="form-control" id="activity_two" name="activity" aria-describedby="emailHelp" placeholder="Activity" disabled></textarea>
-                                 </div>
-
-                                 
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Status</label>
-                                    <select class="form-control" name="status" id="status_two" disabled>
-                                        <option value="IN">Initiated</option>
-                                        <option value="UP">Under Process</option>
-                                        <option value="COM">Complete</option>
+                                    <label for="exampleInputEmail1">Users</label>
+                                    <select class="form-control" name="category_id" id="category_id_payment" disabled>
+                                        <option value="">Select Category</option>
+                                        <option value="IND">Individual</option>
+                                        <option value="AGC">Agency</option>
                                     </select>
-                                 </div>
-                            </form>
+                                </div>
+
+                                <div class="form-group" id="indi_div_payment">
+                                    <label for="exampleInputEmail1">CID/Permit No</label>
+                                    <input type="text" name="cid_permit" id="cid_permit_payment" disabled class="form-control" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" id="name_label_payment">Name</label>
+                                    <input type="text" name="name" id="name_payment"  class="form-control"disabled >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Amount</label>
+                                    <input type="text" name="amount" id="amount_payment"disabled class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Remarks</label>
+                                    <textarea name="remarks" id="remarks_payment"disabled class="form-control"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Receipt Date</label>
+                                    <input type="date" name="receipt_date" id="receipt_date" disabled required class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Receipt no</label>
+                                    <input type="text" name="receipt_no" id="receipt_no" disabled required class="form-control">
+                                </div>
+
+                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -651,19 +587,19 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('administrative.inquiry.plan.chief.list.view.details.chief.insert.inquiry.member') }}" enctype="multipart/form-data">@csrf
-                                <input type="hidden" name="appraise_id" value="{{@$appraise_id}}">
+                            <form method="post" action="{{ route('monetary.fine.view.details.page.chief.insert.cec.member') }}" enctype="multipart/form-data">@csrf
+                                <input type="hidden" name="monetory_id" value="{{@$id}}">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Users</label>
                                     <select class="form-control" name="user_id" id="user_change_add_cec" required>
                                         <option value="">Select User</option>
-                                        @foreach(@$committee_dropdown as $value)
+                                        @foreach(@$cec_user_dropdown as $value)
                                         <option value="{{@$value->id}}" data-eid="{{@$value->eid}}" data-cid="{{@$value->cid}}" data-department="{{@$value->department_name->name}}">{{@$value->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
 
-                                <input type="hidden" name="type" value="admin">
+                                <input type="hidden" name="type" value="cec">
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">CID</label>
@@ -710,7 +646,7 @@
 
             {{-- edit --}}
 
-            <div class="modal fade" id="exampleModa3_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+            <div class="modal fade" id="exampleModa3_edit_cec" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -721,14 +657,14 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('administrative.inquiry.plan.chief.list.view.details.chief.update.inquiry.member') }}" enctype="multipart/form-data">@csrf
-                                <input type="hidden" name="atr_id" value="{{@$id}}">
+                            <form method="post" action="{{ route('monetary.fine.view.details.page.chief.update.cec.member') }}" enctype="multipart/form-data">@csrf
+                                <input type="hidden" name="monetory_id" value="{{@$id}}">
                                 <input type="hidden" name="member_id" id="member_id">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Users</label>
                                     <select class="form-control" name="user_id" disabled id="user_id_edit"  required>
                                         <option value="">Select User</option>
-                                        @foreach(@$user_dropdown as $value)
+                                        @foreach(@$all_users as $value)
                                         <option value="{{@$value->id}}"  data-eid="{{@$value->eid}}" data-cid="{{@$value->cid}}" data-department="{{@$value->department_name->name}}">{{@$value->name}}</option>
                                         @endforeach
                                     </select>
@@ -780,7 +716,7 @@
             </div>
 
 
-            <div class="modal fade" id="exampleModa4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+                <div class="modal fade" id="exampleModa4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -791,8 +727,8 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('administrative.inquiry.plan.chief.list.view.details.chief.insert.inquiry.member') }}" enctype="multipart/form-data">@csrf
-                                 <input type="hidden" name="appraise_id" value="{{@$appraise_id}}">
+                            <form method="post" action="{{ route('monetary.fine.view.details.page.chief.insert.cec.member') }}" enctype="multipart/form-data">@csrf
+                                 <input type="hidden" name="monetory_id" value="{{@$monetary_id}}">
                                  <div class="form-group">
                                     <label for="exampleInputEmail1">Users</label>
                                     <select class="form-control" name="user_id" id="user_change_add_com" required>
@@ -850,6 +786,9 @@
                 </div>
             </div>
 
+                 
+
+
 
 </div>
 
@@ -863,70 +802,94 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>   
 
-        <script type="text/javascript">
-        $('.edit_button').on('click',function(){
-                $('#activity').val($(this).data('activity'));
-                $('#person_contact').val($(this).data('person_contact'));
-                $('#document_review').val($(this).data('document_review'));
-                $('#start_date').val($(this).data('start_date'));
-                $('#status').val($(this).data('status'));
-                $('#id').val($(this).data('id'));
-                $('#exampleModaEdit').modal('show');
-            })
-    </script>
-
     <script type="text/javascript">
-        $('.edit_button2').on('click',function(){
-                $('#activity_two').val($(this).data('activity'));
-                $('#location').val($(this).data('location'));
-                $('#start_date_two').val($(this).data('start_date'));
-                $('#status_two').val($(this).data('status'));
-                $('#id_two').val($(this).data('id'));
-                $('#exampleModaEdit2').modal('show');
-            })
-
         $('.edit_button_person').on('click',function(){
+                    $('#category_id_edit').val($(this).data('category_id')).attr("selected", "selected");
+                    $('#cid_permit').val($(this).data('cid_permit'));
+                    $('#name').val($(this).data('name'));
+                    $('#amount').val($(this).data('amount'));
+                    $('#remarks').val($(this).data('remarks'));
+                    $('#id').val($(this).data('id'));
+
+                    var text = $(this).data('category_id');
+                    if(text=="IND")
+                    {
+                        $('#indi_div_edit').show();
+                        $('#name_label_edit').text('Name');
+                    }else{
+                        $('#indi_div_edit').hide();
+                        $('#name_label_edit').text('Agency Name');
+                    }
+
+
+                    $('#exampleModa3_edit').modal('show');
+                    
+                })
+
+        $('.edit_button_payment').on('click',function(){
+                    $('#category_id_payment').val($(this).data('category_id')).attr("selected", "selected");
+                    $('#cid_permit_payment').val($(this).data('cid_permit'));
+                    $('#name_payment').val($(this).data('name'));
+                    $('#amount_payment').val($(this).data('amount'));
+                    $('#remarks_payment').val($(this).data('remarks'));
+                    $('#id_payment').val($(this).data('id'));
+
+                    $('#receipt_date').val($(this).data('receipt_date'));
+                    $('#receipt_no').val($(this).data('receipt_no'));
+
+                    var text = $(this).data('category_id');
+                    if(text=="IND")
+                    {
+                        $('#indi_div_payment').show();
+                        $('#name_label_payment').text('Name');
+                    }else{
+                        $('#indi_div_payment').hide();
+                        $('#name_label_payment').text('Agency Name');
+                    }
+
+
+                    $('#exampleModa3_payment').modal('show');
+                    
+                })
+
+
+        $('.edit_button_cec').on('click',function(){
                     $('#user_id_edit').val($(this).data('user_id')).attr("selected", "selected");
                     $('#eid_edit').val($(this).data('eid'));
                     $('#cid_edit').val($(this).data('cid'));
-                    $('#name_committee_edit').val($(this).data('name'));
                     $('#department_edit').val($(this).data('department'));
                     $('#role_edit').val($(this).data('role')).attr("selected", "selected");
                     $('#remarks_edit').val($(this).data('remarks'));
                     $('#member_id').val($(this).data('id'));
                     $('#user_edit_edit').val($(this).data('user_id'));
-                    $('#exampleModa3_edit').modal('show');
+                    $('#exampleModa3_edit_cec').modal('show');
                     
                 })
-    </script>
 
-    <script type="text/javascript">
-                 $('#user_change_add_cec').on('change',function(){
-                    $('#eid').val($("#user_change_add_cec option:selected").attr('data-eid'));
-                    $('#cid').val($("#user_change_add_cec option:selected").attr('data-cid'));
-                    $('#department').val($("#user_change_add_cec option:selected").attr('data-department'));
-                 })
-             </script>
+        $('#user_change_add_cec').on('change',function(){
+            var text = $('#user_change_add_cec').val();
+            if(text=="IND")
+            {
+                $('#indi_div').show();
+                $('#name_label').text('Name');
+            }else{
+                $('#indi_div').hide();
+                $('#name_label').text('Agency Name');
+            }
+        })
 
-             <script type="text/javascript">
-                 $('#user_change_add_com').on('change',function(){
+        $('#user_change_add_com').on('change',function(){
                     $('#cid_commision').val($("#user_change_add_com option:selected").attr('data-eid'));
                     $('#eid_commision').val($("#user_change_add_com option:selected").attr('data-cid'));
                     $('#department_commision').val($("#user_change_add_com option:selected").attr('data-department'));
                  })
 
-                 $('#com_final_decision').on('change',function(e){
-                    var decision = $('#com_final_decision').val();
-
-                    if(decision=="ND")
-                    {
-                        $('.new_decision_div').show();
-                    }else{
-                        $('.new_decision_div').hide();
-                    }
+        $('#user_change_add_cec').on('change',function(){
+                    $('#eid').val($("#user_change_add_cec option:selected").attr('data-eid'));
+                    $('#cid').val($("#user_change_add_cec option:selected").attr('data-cid'));
+                    $('#department').val($("#user_change_add_cec option:selected").attr('data-department'));
                  })
+    </script>
 
-                 
-             </script>
 
 @endsection
