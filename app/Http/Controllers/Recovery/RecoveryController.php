@@ -10,6 +10,7 @@ use App\Models\Complaint\RecoveryDetails;
 use App\Models\Complaint\RecoveryModel;
 use App\Models\Complaint\RecoveryModelOfficial;
 use App\Models\Complaint\RecoveryCecCom;
+use App\Models\Complaint\CecComCrud;
 use Redirect;
 use Session;
 use Alert;
@@ -27,7 +28,7 @@ class RecoveryController extends Controller
         $data = [];
         $data['id'] = $id;
         $data['details'] = RecoveryModel::where('id',$id)->first();
-        $data['members'] = RecoveryModelOfficial::where('monetary_id',$id)->get();
+        $data['members'] = RecoveryModelOfficial::where('recovery_id',$id)->get();
         $data['users'] = User::get();
         return view('recovery.assign',$data);
     }
@@ -37,7 +38,7 @@ class RecoveryController extends Controller
         $new = new RecoveryModelOfficial;
         $new->user_id = $request->user_id;
         $new->role = $request->role;
-        $new->monetary_id = $request->monetary_id;
+        $new->recovery_id = $request->monetary_id;
         $new->save();
         Alert::success('You\'ve Successfully Added A Member');
         return Redirect::back();
@@ -72,7 +73,7 @@ class RecoveryController extends Controller
         $upd['coi_description'] = $request->coi_description;
         RecoveryModelOfficial::where('id',$request->id)->update($upd);
         Alert::success('Decision updated successfully');
-        return redirect()->route('monetary.fine.get.official');
+        return redirect()->route('recovery-model.get.official');
     }
 
     public function viewPage($id)
@@ -80,16 +81,16 @@ class RecoveryController extends Controller
         $data = [];
         $data['id'] = $id;
         $data['data'] = RecoveryModelOfficial::where('id',$id)->first();
-        $data['monetary_id'] = $data['data']->monetary_id;
+        $data['monetary_id'] = $data['data']->recovery_id;
         $data['monetary_details'] = RecoveryModel::where('id',$data['monetary_id'])->first();
-        $data['details'] = RecoveryDetails::where('user_id',auth()->user()->id)->where('monetary_id',$data['monetary_id'])->get();
+        $data['details'] = RecoveryDetails::where('user_id',auth()->user()->id)->where('recovery_id',$data['monetary_id'])->get();
         return view('recovery.view_official',$data);
     }
 
     public function insertFine(Request $request)
     {
         $new = new RecoveryDetails;
-        $new->monetary_id = $request->monetary_id;
+        $new->recovery_id = $request->monetary_id;
         $new->user_id = auth()->user()->id;
         $new->category_id = $request->category_id;
         if(@$request->category_id=="IND")
@@ -148,13 +149,13 @@ class RecoveryController extends Controller
         $data['id'] = $id;
         $data['data'] = RecoveryModel::where('id',$id)->first();
         $data['monetary_details'] = RecoveryModel::where('id',$id)->first();
-        $data['details'] = RecoveryDetails::where('monetary_id',$data['monetary_id'])->get();
+        $data['details'] = RecoveryDetails::where('recovery_id',$data['monetary_id'])->get();
         $cec_users = CecComCrud::where('user_type','CEC')->where('status','A')->pluck('user_id')->toArray();
         $com_users = CecComCrud::where('user_type','COM')->where('status','A')->pluck('user_id')->toArray();
         $data['cec_user_dropdown'] = User::whereIn('id',$cec_users)->get();
         $data['com_user_dropdown'] = User::whereIn('id',$com_users)->get();
-        $data['cec_members'] = RecoveryCecCom::where('monetory_id',$id)->where('type','cec')->get();
-        $data['com_members'] = RecoveryCecCom::where('monetory_id',$id)->where('type','com')->get();
+        $data['cec_members'] = RecoveryCecCom::where('recovery_id',$id)->where('type','cec')->get();
+        $data['com_members'] = RecoveryCecCom::where('recovery_id',$id)->where('type','com')->get();
         $data['all_users'] = User::where('status','A')->get();
         return view('recovery.view_chief',$data);
     }
@@ -277,7 +278,7 @@ class RecoveryController extends Controller
             return redirect('dashboard');
         }
         $data['monetary_details'] = RecoveryModel::where('id',$data['data']->monetory_id)->first();
-        $data['details'] = RecoveryDetails::where('monetary_id', $data['data']->monetory_id)->get();
+        $data['details'] = RecoveryDetails::where('recovery_id', $data['data']->monetory_id)->get();
         return view('recovery.cec_full_view',$data);
     }
 

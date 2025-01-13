@@ -57,9 +57,9 @@
                                         <td>
                                             
                                                 @if(@$att->coi_status!="AA")
-                                                <a href="{{route('monetary.fine.get.official.view.page',$att->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                                <a href="{{route('recovery-model.get.official.view.page',$att->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
                                                 @else
-                                                <a href="{{route('monetary.fine.get.official.coi.page',$att->id)}}" class="btn btn-warning">COI</a>
+                                                <a href="{{route('recovery-model.get.official.coi.page',$att->id)}}" class="btn btn-warning">COI</a>
                                                 @endif
 
                                                 

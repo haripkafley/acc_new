@@ -99,7 +99,7 @@
                                                     </a>
 
                                                <a class="btn btn-xs btn-danger"
-                                                        href="{{route('monetary.fine.get.official.view.page.delete.fine',@$value->id)}}"
+                                                        href="{{route('recovery-model.get.official.view.page.delete.fine',@$value->id)}}"
                                                         onclick="return confirm('Are you sure , you want to delete this ? ')"><i
                                                             class="fa fa-trash"></i>
                                                         Delete
@@ -148,7 +148,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('monetary.fine.get.official.view.page.insert.fine') }}" enctype="multipart/form-data">@csrf
+                            <form method="post" action="{{ route('recovery-model.get.official.view.page.insert.fine') }}" enctype="multipart/form-data">@csrf
                                 <input type="hidden" name="monetary_id" value="{{@$monetary_id}}">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Users</label>
@@ -204,7 +204,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('monetary.fine.get.official.view.page.update.fine') }}" enctype="multipart/form-data">@csrf
+                            <form method="post" action="{{ route('recovery-model.get.official.view.page.update.fine') }}" enctype="multipart/form-data">@csrf
                                 <input type="hidden" name="id" id="id">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Users</label>
@@ -260,7 +260,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('monetary.fine.get.official.view.page.update.fine.payment') }}" enctype="multipart/form-data">@csrf
+                            <form method="post" action="{{ route('recovery-model.get.official.view.page.update.fine.payment') }}" enctype="multipart/form-data">@csrf
                                 <input type="hidden" name="id" id="id_payment">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Users</label>
