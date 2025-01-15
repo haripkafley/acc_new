@@ -121,6 +121,46 @@
                 </div>
                 </div>
 
+                <div class="col-sm-12">
+                    <div class="card card-primary card-outline card-outline-tabs">
+                    <div class="card-header" style="font-family:Product Sans"> Monitory Fine Report </div>
+
+                        <div class = "card-body">
+                            <form action="{{route('monetary.fine.view.details.page.chief.update.monitory.fine.decision')}}" enctype="multipart/form-data" method="POST">
+                                @csrf
+                                <input type="hidden" name="monetary_id" value="{{@$monetary_id}}">
+                                @if(@$monetary_details->admin_report_attachment!="")
+                                <div class="form-group">
+                                    <a href="{{URL::to('attachment/information_enrichment')}}/{{$monetary_details->admin_report_attachment}}" class="btn btn-xs btn-primary" target="_blank">See Attachment</a>
+                                </div>
+                                @endif
+
+                                <div class="form-group">
+                                    <label>Report Remarks</label>
+                                    <textarea type="text" name="admin_report_remarks" disabled class="form-control">{{@$monetary_details->admin_report_remarks}}</textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Report Approval Status</label>
+                                    <select class="form-control" name="admin_approval_status_chief">
+                                        <option value="AA" @if(@$monetary_details->admin_approval_status_chief=="AA") selected @endif>Awaiting</option>
+                                        <option value="A" @if(@$monetary_details->admin_approval_status_chief=="A") selected @endif>Approve</option>
+                                        <option value="R" @if(@$monetary_details->admin_approval_status_chief=="R") selected @endif>Reject</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Chief Remarks</label>
+                                    <textarea type="text" name="admin_approval_remarks_chief"  class="form-control">{{@$monetary_details->admin_approval_remarks_chief}}</textarea>
+                                </div>
+
+                                <div class="form-group"><button type="submit" class="btn btn-primary">Submit</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
 
 
                 <div class="col-sm-12">
@@ -209,6 +249,8 @@
                     </div>
                 </div>
 
+
+                
 
                 <div class="col-sm-12">
                         <div class="card">
@@ -471,7 +513,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('recovery-model.get.official.view.page.update.fine') }}" enctype="multipart/form-data">@csrf
+                            <form method="post" action="#" enctype="multipart/form-data">@csrf
                                 <input type="hidden" name="id" id="id">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Users</label>

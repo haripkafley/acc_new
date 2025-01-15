@@ -2681,6 +2681,7 @@ Route::post('monetary-fine/view-details-page/update-cec-members',[App\Http\Contr
 Route::get('monetary-fine/view-details-page/delete-cec-members/{id}',[App\Http\Controllers\MonitoryFine\MonitorController::class,'deleteCecMember'])->name('monetary.fine.view.details.page.chief.delete.cec.member.data');
 Route::post('monetary-fine/view-details-page/update-cec-member-decision',[App\Http\Controllers\MonitoryFine\MonitorController::class,'updateCecMemberDecision'])->name('monetary.fine.view.details.page.chief.insert.cec.member.update.decision');
 Route::post('monetary-fine/view-details-page/update-commission-member-decision',[App\Http\Controllers\MonitoryFine\MonitorController::class,'updatecommissionMemberDecision'])->name('monetary.fine.view.details.page.chief.insert.commission.member.update.decision');
+Route::post('monetary-fine/view-details-page/update-report-monitory-fine',[App\Http\Controllers\MonitoryFine\MonitorController::class,'updateMonitoryFineDecision'])->name('monetary.fine.view.details.page.chief.update.monitory.fine.decision');
 
 
 // monetary-fine-cec-commission
@@ -2700,6 +2701,7 @@ Route::post('monetary-fine-official/view-page/insert-monetary-fine',[App\Http\Co
 Route::post('monetary-fine-official/view-page/update-monetary-fine',[App\Http\Controllers\MonitoryFine\MonitorController::class,'updateFine'])->name('monetary.fine.get.official.view.page.update.fine');
 Route::get('monetary-fine-official/view-page/delete-monetary-fine/{id}',[App\Http\Controllers\MonitoryFine\MonitorController::class,'deleteFine'])->name('monetary.fine.get.official.view.page.delete.fine');
 Route::post('monetary-fine-official/view-page/update-monetary-fine-payment',[App\Http\Controllers\MonitoryFine\MonitorController::class,'updateFinePayment'])->name('monetary.fine.get.official.view.page.update.fine.payment');
+Route::post('monetary-fine-official/view-page/update-complete-report',[App\Http\Controllers\MonitoryFine\MonitorController::class,'updateReport'])->name('monetary.fine.get.official.view.page.update.report.page.final');
 
 
 // recovery-model
@@ -2714,6 +2716,8 @@ Route::post('recovery-model/view-details-page/update-cec-members',[App\Http\Cont
 Route::get('recovery-model/view-details-page/delete-cec-members/{id}',[App\Http\Controllers\Recovery\RecoveryController::class,'deleteCecMember'])->name('recovery-model.view.details.page.chief.delete.cec.member.data');
 Route::post('recovery-model/view-details-page/update-cec-member-decision',[App\Http\Controllers\Recovery\RecoveryController::class,'updateCecMemberDecision'])->name('recovery-model.view.details.page.chief.insert.cec.member.update.decision');
 Route::post('recovery-model/view-details-page/update-commission-member-decision',[App\Http\Controllers\Recovery\RecoveryController::class,'updatecommissionMemberDecision'])->name('recovery-model.view.details.page.chief.insert.commission.member.update.decision');
+
+Route::post('recovery-model/view-details-page/update-recovery-report-decision-cheif',[App\Http\Controllers\Recovery\RecoveryController::class,'chiefReportDecision'])->name('recovery-model.view.details.page.chief.update.report.decision');
 
 
 // monetary-fine-cec-commission
@@ -2734,3 +2738,4 @@ Route::post('recovery-model-official/view-page/insert-recovery-model',[App\Http\
 Route::post('recovery-model-official/view-page/update-recovery-model',[App\Http\Controllers\Recovery\RecoveryController::class,'updateFine'])->name('recovery-model.get.official.view.page.update.fine');
 Route::get('recovery-model-official/view-page/delete-recovery-model/{id}',[App\Http\Controllers\Recovery\RecoveryController::class,'deleteFine'])->name('recovery-model.get.official.view.page.delete.fine');
 Route::post('recovery-model-official/view-page/update-recovery-model-payment',[App\Http\Controllers\Recovery\RecoveryController::class,'updateFinePayment'])->name('recovery-model.get.official.view.page.update.fine.payment');
+Route::post('recovery-model-official/view-page/update-recovery-model/report-submit-final',[App\Http\Controllers\Recovery\RecoveryController::class,'reportSubmitFinal'])->name('recovery-model.get.official.view.page.final.report.submit');

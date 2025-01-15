@@ -71,6 +71,16 @@ class MonitorController extends Controller
         return view('monetary_fine.view_chief',$data);
     }
 
+    public function updateMonitoryFineDecision(Request $request)
+    {
+        $upd = [];
+        $upd['admin_approval_status_chief'] = $request->admin_approval_status_chief;
+        $upd['admin_approval_remarks_chief'] = $request->admin_approval_remarks_chief;
+        MonitoryFine::where('id',$request->monetary_id)->update($upd);
+        Alert::success('You\'ve Successfully Updated A Report');
+        return Redirect::back();
+    }
+
     public function insertCecMember(Request $request)
     {
         // return $request;
@@ -229,6 +239,21 @@ class MonitorController extends Controller
         MonitoryFineDetails::where('id',$request->id)->update($upd);
         Alert::success('Payment details updated successfully');
         return Redirect::back();
+    }
+
+    public function updateReport(Request $request)
+    {
+        $upd = [];
+        $upd['admin_report_remarks'] = $request->admin_report_remarks;
+        if (@$request->admin_report_attachment) {
+            $file = @$request->admin_report_attachment;
+            $filename = time() . '-' . rand(1000, 9999) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path().'/attachment/information_enrichment/',$filename);
+            $upd['admin_report_attachment'] = $filename;
+        }
+        MonitoryFine::where('id',$request->monetary_id)->update($upd);
+        Alert::success('Report submitted successfully');
+        return redirect()->back();
     }
 
     public function cecCasesList()

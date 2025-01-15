@@ -99,7 +99,7 @@
                                                     </a>
 
                                                <a class="btn btn-xs btn-danger"
-                                                        href="{{route('recovery-model.get.official.view.page.delete.fine',@$value->id)}}"
+                                                        href="{{route('monetary.fine.get.official.view.page.delete.fine',@$value->id)}}"
                                                         onclick="return confirm('Are you sure , you want to delete this ? ')"><i
                                                             class="fa fa-trash"></i>
                                                         Delete
@@ -136,6 +136,37 @@
                 </div>
 
 
+                        <div class="col-sm-12">
+                    <div class="card card-primary card-outline card-outline-tabs">
+                    <div class="card-header" style="font-family:Product Sans"> Monetary Fine Report </div>
+
+                        <div class = "card-body">
+                            <form action="{{route('monetary.fine.get.official.view.page.update.report.page.final')}}" enctype="multipart/form-data" method="POST">
+                                @csrf
+                                <input type="hidden" name="monetary_id" value="{{@$monetary_id}}">
+                                <div class="form-group">
+                                    <label>Report Attachment</label>
+                                    <input type="file" name="admin_report_attachment" class="form-control">
+                                </div>
+
+                                @if(@$monetary_details->admin_report_attachment!="")
+                                <div class="form-group">
+                                    <a href="{{URL::to('attachment/information_enrichment')}}/{{$monetary_details->admin_report_attachment}}" class="btn btn-xs btn-primary" target="_blank">See Attachment</a>
+                                </div>
+                                @endif
+
+                                <div class="form-group">
+                                    <label>Report Remarks</label>
+                                    <textarea type="text" name="admin_report_remarks" class="form-control">{{@$monetary_details->admin_report_remarks}}</textarea>
+                                </div>
+
+                                <div class="form-group"><button type="submit" class="btn btn-primary">Submit</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
 
                 <div class="modal fade" id="exampleModa3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
                 aria-hidden="true">
@@ -148,7 +179,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('recovery-model.get.official.view.page.insert.fine') }}" enctype="multipart/form-data">@csrf
+                            <form method="post" action="{{ route('monetary.fine.get.official.view.page.insert.fine') }}" enctype="multipart/form-data">@csrf
                                 <input type="hidden" name="monetary_id" value="{{@$monetary_id}}">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Users</label>
@@ -204,7 +235,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('recovery-model.get.official.view.page.update.fine') }}" enctype="multipart/form-data">@csrf
+                            <form method="post" action="{{ route('monetary.fine.get.official.view.page.update.fine') }}" enctype="multipart/form-data">@csrf
                                 <input type="hidden" name="id" id="id">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Users</label>
@@ -260,7 +291,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('recovery-model.get.official.view.page.delete.fine') }}" enctype="multipart/form-data">@csrf
+                            <form method="post" action="{{ route('monetary.fine.get.official.view.page.update.fine.payment') }}" enctype="multipart/form-data">@csrf
                                 <input type="hidden" name="id" id="id_payment">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Users</label>

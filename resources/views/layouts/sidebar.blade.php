@@ -293,7 +293,7 @@
 
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{ route('monetary.fine.get.official') }}" class="nav-link">
+                    <a href="{{ route('monetary.fine.cheif') }}" class="nav-link">
                        <i class="fa fa-ravelry" aria-hidden="true"></i>
                             <p>Monetary Fine</p>
                     </a>

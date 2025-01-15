@@ -136,6 +136,37 @@
                 </div>
 
 
+                <div class="col-sm-12">
+                    <div class="card card-primary card-outline card-outline-tabs">
+                    <div class="card-header" style="font-family:Product Sans"> Recovery Report </div>
+
+                        <div class = "card-body">
+                            <form action="{{route('recovery-model.get.official.view.page.final.report.submit')}}" enctype="multipart/form-data" method="POST">
+                                @csrf
+                                <input type="hidden" name="monetary_id" value="{{@$monetary_id}}">
+                                <div class="form-group">
+                                    <label>Report Attachment</label>
+                                    <input type="file" name="admin_report_attachment" class="form-control">
+                                </div>
+
+                                @if(@$monetary_details->admin_report_attachment!="")
+                                <div class="form-group">
+                                    <a href="{{URL::to('attachment/information_enrichment')}}/{{$monetary_details->admin_report_attachment}}" class="btn btn-xs btn-primary" target="_blank">See Attachment</a>
+                                </div>
+                                @endif
+
+                                <div class="form-group">
+                                    <label>Report Remarks</label>
+                                    <textarea type="text" name="admin_report_remarks" class="form-control">{{@$monetary_details->admin_report_remarks}}</textarea>
+                                </div>
+
+                                <div class="form-group"><button type="submit" class="btn btn-primary">Submit</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
 
                 <div class="modal fade" id="exampleModa3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
                 aria-hidden="true">

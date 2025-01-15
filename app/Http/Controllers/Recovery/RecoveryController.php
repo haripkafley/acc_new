@@ -288,4 +288,29 @@ class RecoveryController extends Controller
         $data['data'] = RecoveryCecCom::where('member_id',auth()->user()->id)->whereIn('coi_status',['AA','N'])->where('type','com')->get();
         return view('recovery.com_cases',$data);
     }
+
+    public function reportSubmitFinal(Request $request)
+    {
+        $upd = [];
+        $upd['admin_report_remarks'] = $request->admin_report_remarks;
+        if (@$request->admin_report_attachment) {
+            $file = @$request->admin_report_attachment;
+            $filename = time() . '-' . rand(1000, 9999) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path().'/attachment/information_enrichment/',$filename);
+            $upd['admin_report_attachment'] = $filename;
+        }
+        RecoveryModel::where('id',$request->monetary_id)->update($upd);
+        Alert::success('Report submitted successfully');
+        return redirect()->back();
+    }
+
+    public function chiefReportDecision(Request $request)
+    {
+        $upd = [];
+        $upd['admin_approval_status_chief'] = $request->admin_approval_status_chief;
+        $upd['admin_approval_remarks_chief'] = $request->admin_approval_remarks_chief;
+        RecoveryModel::where('id',$request->monetary_id)->update($upd);
+        Alert::success('You\'ve Successfully Updated A Report');
+        return Redirect::back();
+    }
 }

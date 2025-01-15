@@ -13,7 +13,10 @@ use App\Models\Complaint\DeskReviewContact;
 use App\Models\Complaint\AdministrativeFeildPersonContact;
 use App\Models\Complaint\AdminInquiryRoom;
 use App\Models\Complaint\AdminInquiryCommittee;
+use App\Models\Complaint\CompalintEveOffence;
 use App\Models\Complaint\CecComCrud;
+use App\Models\Complaint\MonitoryFine;
+use App\Models\Complaint\RecoveryModel;
 use Redirect;
 use Session;
 use Alert;
@@ -89,6 +92,7 @@ class AdminInquiryController extends Controller
     public function updateCommissionMeetinDecision(Request $request)
     {
         $details = Appraise::where('id',$request->appraise_id)->first();
+        $allegation_details = CompalintEveOffence::where('id',$details->eve_offence_id)->first();
         $upd = [];
         $upd['inquiry_com_date'] = $request->inquiry_com_date;
         $upd['inquiry_com_time'] = $request->inquiry_com_time;
@@ -97,8 +101,32 @@ class AdminInquiryController extends Controller
         $upd['inquiry_com_decision'] = $request->inquiry_com_decision;
         $upd['inquiry_com_remarks'] = $request->inquiry_com_remarks;
         if (@$request->inquiry_com_status=="ECD") {
+            if ($details->inquiry_decision=="MF") {
+                $mf_fine = new MonitoryFine;
+                $mf_fine->complaint_id = $allegation_details->complaint_id;
+                $mf_fine->offence_allegation = $details->eve_offence_id;
+                $mf_fine->save();
+            }
+            if ($details->inquiry_decision=="REC") {
+                $recovery = new RecoveryModel;
+                $recovery->complaint_id = $allegation_details->complaint_id;
+                $recovery->offence_allegation = $details->eve_offence_id;
+                $recovery->save();
+            }
             $upd['inquiry_com_decision'] = $details->inquiry_decision;
         }else{
+            if ($request->inquiry_com_decision=="MF") {
+                $mf_fine = new MonitoryFine;
+                $mf_fine->complaint_id = $allegation_details->complaint_id;
+                $mf_fine->offence_allegation = $details->eve_offence_id;
+                $mf_fine->save();
+            }
+            if ($request->inquiry_com_decision=="REC") {
+                $recovery = new RecoveryModel;
+                $recovery->complaint_id = $allegation_details->complaint_id;
+                $recovery->offence_allegation = $details->eve_offence_id;
+                $recovery->save();
+            }
             $upd['inquiry_com_decision'] = $request->inquiry_com_decision;
         }
         Appraise::where('id',$request->appraise_id)->update($upd);
